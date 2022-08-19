@@ -1,5 +1,21 @@
 <template>
-  <div id="bg" ref="base_container"></div>
+  <div id="bg" ref="base_container">
+    <div class="intro" ref="intro">
+      <h3>Introduction</h3>
+      <p>--> Zoom: use mouse wheel to zoom image.</p>
+      <p>--> Pan: use mouse right click on image, then drag image to pan.</p>
+      <p>
+        --> Switch slice: press shift on your keyboard (do not release it when
+        you switch slice), then use mouse left click the image to drag up and
+        down. When the switch is made to the image you want, you can release the
+        shift key.
+      </p>
+      <p>
+        --> Undo: 1. In GUI click undo; 2. on keyborad using ctrl+z (windows) /
+        command+z(mac).
+      </p>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
 import { GUI } from "dat.gui";
@@ -10,22 +26,26 @@ import { getCurrentInstance, onMounted, ref } from "vue";
 let refs = null;
 let bg: HTMLDivElement = ref<any>(null);
 let appRenderer: Copper.copperMSceneRenderer;
+let intro: HTMLDivElement = ref<any>(null);
+let gui: GUI;
 
 onMounted(() => {
   let { $refs } = (getCurrentInstance() as any).proxy;
   refs = $refs;
   bg = refs.base_container;
+  intro = refs.intro;
 
   appRenderer = new Copper.copperMSceneRenderer(bg, 1);
 
   appRenderer.sceneInfos[0].addSubView();
 
+  gui = appRenderer.sceneInfos[0].gui;
   loadNrrd(
-    "/nrrd-segmentation/nrrd/breast-224.nrrd",
+    "/Nrrd-Segmentation/nrrd/breast-224.nrrd",
     "nrrd0",
     appRenderer.sceneInfos[0]
   );
-
+  setupGui();
   appRenderer.animate();
 });
 
@@ -38,7 +58,7 @@ function loadNrrd(url: string, name: string, sceneIn: Copper.copperMScene) {
     /**
      * for test 1 view
      * */
-    sceneIn.loadViewUrl("/nrrd-segmentation/nrrd_view.json");
+    sceneIn.loadViewUrl("/Nrrd-Segmentation/nrrd_view.json");
     sceneIn.subScene.add(nrrdMesh.z);
     sceneIn.dragImage(nrrdSlices.z, {
       mode: "mode1",
@@ -51,11 +71,20 @@ function loadNrrd(url: string, name: string, sceneIn: Copper.copperMScene) {
   };
   if (sceneIn) {
     sceneIn?.loadNrrd(url, funa);
-    sceneIn.loadViewUrl("/nrrd-segmentation/nrrd_view.json");
+    sceneIn.loadViewUrl("/Nrrd-Segmentation/nrrd_view.json");
   }
   sceneIn.updateBackground("#18e5a7", "#ff00ff");
-  Copper.setHDRFilePath("/nrrd-segmentation/venice_sunset_1k.hdr");
+  Copper.setHDRFilePath("/Nrrd-Segmentation/venice_sunset_1k.hdr");
   appRenderer.updateEnvironment(sceneIn);
+}
+
+function setupGui() {
+  const state = {
+    introduction: true,
+  };
+  gui.add(state, "introduction").onChange((flag) => {
+    flag ? (intro.style.display = "flex") : (intro.style.display = "none");
+  });
 }
 </script>
 
@@ -82,5 +111,27 @@ function loadNrrd(url: string, name: string, sceneIn: Copper.copperMScene) {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 30px;
+  top: 30px;
+  padding: 20px;
+  width: 300px;
+  min-height: 400px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+}
+
+h3 {
+  color: crimson;
+}
+p {
+  color: darkcyan;
 }
 </style>
