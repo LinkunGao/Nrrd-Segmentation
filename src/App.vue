@@ -26,12 +26,14 @@ import { getCurrentInstance, onMounted, ref } from "vue";
 let refs = null;
 let bg: HTMLDivElement = ref<any>(null);
 let appRenderer: Copper.copperMSceneRenderer;
+let intro: HTMLDivElement = ref<any>(null);
 let gui: GUI;
 
 onMounted(() => {
   let { $refs } = (getCurrentInstance() as any).proxy;
   refs = $refs;
   bg = refs.base_container;
+  intro = refs.intro;
 
   appRenderer = new Copper.copperMSceneRenderer(bg, 1);
 
@@ -43,7 +45,7 @@ onMounted(() => {
     "nrrd0",
     appRenderer.sceneInfos[0]
   );
-
+  setupGui();
   appRenderer.animate();
 });
 
@@ -74,6 +76,15 @@ function loadNrrd(url: string, name: string, sceneIn: Copper.copperMScene) {
   sceneIn.updateBackground("#18e5a7", "#ff00ff");
   Copper.setHDRFilePath("/nrrd-segmentation/venice_sunset_1k.hdr");
   appRenderer.updateEnvironment(sceneIn);
+}
+
+function setupGui() {
+  const state = {
+    introduction: true,
+  };
+  gui.add(state, "introduction").onChange((flag) => {
+    flag ? (intro.style.display = "flex") : (intro.style.display = "none");
+  });
 }
 </script>
 
