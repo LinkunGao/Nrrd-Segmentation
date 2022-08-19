@@ -1,5 +1,21 @@
 <template>
-  <div id="bg" ref="base_container"></div>
+  <div id="bg" ref="base_container">
+    <div class="intro" ref="intro">
+      <h3>Introduction</h3>
+      <p>--> Zoom: use mouse wheel to zoom image.</p>
+      <p>--> Pan: use mouse right click on image, then drag image to pan.</p>
+      <p>
+        --> Switch slice: press shift on your keyboard (do not release it when
+        you switch slice), then use mouse left click the image to drag up and
+        down. When the switch is made to the image you want, you can release the
+        shift key.
+      </p>
+      <p>
+        --> Undo: 1. In GUI click undo; 2. on keyborad using ctrl+z (windows) /
+        command+z(mac).
+      </p>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
 import { GUI } from "dat.gui";
@@ -10,6 +26,7 @@ import { getCurrentInstance, onMounted, ref } from "vue";
 let refs = null;
 let bg: HTMLDivElement = ref<any>(null);
 let appRenderer: Copper.copperMSceneRenderer;
+let gui: GUI;
 
 onMounted(() => {
   let { $refs } = (getCurrentInstance() as any).proxy;
@@ -20,6 +37,7 @@ onMounted(() => {
 
   appRenderer.sceneInfos[0].addSubView();
 
+  gui = appRenderer.sceneInfos[0].gui;
   loadNrrd(
     "/nrrd-segmentation/nrrd/breast-224.nrrd",
     "nrrd0",
@@ -82,5 +100,27 @@ function loadNrrd(url: string, name: string, sceneIn: Copper.copperMScene) {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 30px;
+  top: 30px;
+  padding: 20px;
+  width: 300px;
+  min-height: 400px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+}
+
+h3 {
+  color: crimson;
+}
+p {
+  color: darkcyan;
 }
 </style>
