@@ -30,6 +30,12 @@ let intro: HTMLDivElement = ref<any>(null);
 let gui: GUI;
 
 onMounted(() => {
+  console.log(
+    "%cNRRD Segmentation App %cBeta:v1.1.1",
+    "padding: 3px;color:white; background:#d94607",
+    "padding: 3px;color:white; background:#219EBC"
+  );
+
   let { $refs } = (getCurrentInstance() as any).proxy;
   refs = $refs;
   bg = refs.base_container;
