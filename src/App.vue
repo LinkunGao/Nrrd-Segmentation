@@ -2,17 +2,20 @@
   <div id="bg" ref="base_container">
     <div class="intro" ref="intro">
       <h3>Introduction</h3>
-      <p>--> Zoom: use mouse wheel to zoom image.</p>
-      <p>--> Pan: use mouse right click on image, then drag image to pan.</p>
+      <p><strong>--> Zoom:</strong> use mouse wheel to zoom image.</p>
       <p>
-        --> Switch slice: press shift on your keyboard (do not release it when
-        you switch slice), then use mouse left click the image to drag up and
-        down. When the switch is made to the image you want, you can release the
-        shift key.
+        <strong>--> Pan:</strong> use mouse right click on image, then drag
+        image to pan.
       </p>
       <p>
-        --> Undo: 1. In GUI click undo; 2. on keyborad using ctrl+z (windows) /
-        command+z(mac).
+        <strong>--> Switch slice:</strong> press shift on your keyboard (do not
+        release it when you switch slice), then use mouse left click the image
+        to drag up and down. When the switch is made to the image you want, you
+        can release the shift key.
+      </p>
+      <p>
+        <strong> --> Undo:</strong> 1. In GUI click undo; or 2. on keyborad
+        using ctrl+z (windows) / command+z(mac).
       </p>
     </div>
   </div>
@@ -31,7 +34,7 @@ let gui: GUI;
 
 onMounted(() => {
   console.log(
-    "%cNRRD Segmentation App %cBeta:v1.1.1",
+    "%cNRRD Segmentation App %cBeta:v1.1.2",
     "padding: 3px;color:white; background:#d94607",
     "padding: 3px;color:white; background:#219EBC"
   );
@@ -138,6 +141,7 @@ h3 {
   color: crimson;
 }
 p {
-  color: darkcyan;
+  /* color: darkcyan; */
+  color: #d94607;
 }
 </style>
