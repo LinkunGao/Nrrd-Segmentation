@@ -2,10 +2,13 @@
   <div id="bg" ref="base_container">
     <div class="intro" ref="intro">
       <h3>Introduction</h3>
-      <p><strong>--> Zoom:</strong> use mouse wheel to zoom image.</p>
       <p>
-        <strong>--> Pan:</strong> use mouse right click on image, then drag
-        image to pan.
+        <strong>--> Zoom:</strong>When your mouse hover on slice image, then use
+        mouse wheel to zoom image.
+      </p>
+      <p>
+        <strong>--> Pan:</strong>When your mouse hover on slice image, and use
+        mouse right click on image, then drag image to pan.
       </p>
       <p>
         <strong>--> Switch slice:</strong> press shift on your keyboard (do not
