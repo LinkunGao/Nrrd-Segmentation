@@ -3,11 +3,11 @@
     <div class="intro" ref="intro">
       <h3>Introduction</h3>
       <p>
-        <strong>--> Zoom:</strong>When your mouse hover on slice image, then use
-        mouse wheel to zoom image.
+        <strong>--> Zoom:</strong> When your mouse hover on slice image, then
+        use mouse wheel to zoom image.
       </p>
       <p>
-        <strong>--> Pan:</strong>When your mouse hover on slice image, and use
+        <strong>--> Pan: </strong> When your mouse hover on slice image, and use
         mouse right click on image, then drag image to pan.
       </p>
       <p>
